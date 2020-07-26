@@ -39,6 +39,7 @@ jobs:
       - name: Install TinyTeX
         run: |
           wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh
+          tlmgr update --self
           tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
                         float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
                          pdftexcmds upquote hypcap
