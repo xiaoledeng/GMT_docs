@@ -36,5 +36,5 @@ jobs:
           GMT_DOC_VERSION : 6.1
           GMT_INSTALL_PREFIX : ${{ github.workspace }}/GMT
 
-       - name: Build documentaiton
-         run: make dirhtml
+      - name: Build documentaiton
+        run: make dirhtml
