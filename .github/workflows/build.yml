@@ -32,4 +32,4 @@ jobs:
           DCW_VERSION : 1.1.4
           GMT_VERSION :  6.1.0
           GMT_DOC_VERSION : 6.1
-          GMT_INSTALL_PREFIX : ${HOME}/GMT
+          GMT_INSTALL_PREFIX : ${{ github.workspace }}/GMT
