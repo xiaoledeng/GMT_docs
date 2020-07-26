@@ -36,5 +36,12 @@ jobs:
           GMT_DOC_VERSION : 6.1
           GMT_INSTALL_PREFIX : ${{ github.workspace }}/GMT
 
-      - name: Build documentaiton
-        run: make dirhtml
+      - name: Install TinyTeX
+        run: |
+          wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh
+          tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
+                        float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
+                         pdftexcmds upquote hypcap
+
+      #- name: Build documentaiton
+      #  run: make dirhtml
