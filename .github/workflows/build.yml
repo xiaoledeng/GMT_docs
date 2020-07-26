@@ -20,3 +20,13 @@ jobs:
 
       - name: Install requirements
         run: pip install -r requirements.txt
+
+      - name: Install GMT
+        run: |
+          source ci/install-gmt.sh
+        env:
+          GSHHG_VERSION : 2.3.7
+          DCW_VERSION : 1.1.4
+          GMT_VERSION :  6.1.0
+          GMT_DOC_VERSION : 6.1
+          GMT_INSTALL_PREFIX : ${HOME}/GMT
