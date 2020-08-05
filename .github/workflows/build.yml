@@ -1,4 +1,4 @@
-name: Build HTML
+name: Build documentation
 
 on:
   pull_request:
@@ -18,31 +18,30 @@ jobs:
         with:
           python-version: '3.8'
 
-      - name: Install requirements
+      - name: Install Python packages
         run: pip install -r requirements.txt
 
-      - name: Install GMT
+      - name: Install GMT dependencies
         run: |
-          sudo apt-get install cmake libcurl4-gnutls-dev libnetcdf-dev \
-                               gdal-bin libgdal-dev libfftw3-dev libpcre3-dev \
-                               liblapack-dev libblas-dev libglib2.0-dev ghostscript
-          source ci/install-gmt.sh
+          sudo apt-get install --no-install-recommends --no-install-suggests \
+               cmake libcurl4-gnutls-dev libnetcdf-dev gdal-bin libgdal-dev \
+               libfftw3-dev libpcre3-dev liblapack-dev libblas-dev libglib2.0-dev ghostscript
+
+      - name: Build GMT
+          curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
           # Add to PATH
-          echo "::add-path::${GMT_INSTALL_PREFIX}/bin"
+          echo "::add-path::${GMT_INSTALL_DIR}/bin"
         env:
-          GSHHG_VERSION : 2.3.7
-          DCW_VERSION : 1.1.4
-          GMT_VERSION :  6.1.0
-          GMT_DOC_VERSION : 6.1
-          GMT_INSTALL_PREFIX : ${{ github.workspace }}/GMT
+          GMT_INSTALL_DIR: ${{ github.workspace }}/GMT
+          GMT_GIT_REF: 6.1.0
 
-      - name: Install TinyTeX
-        run: |
-          wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh
-          tlmgr update --self
-          tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
-                        float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
-                         pdftexcmds upquote hypcap
+      #- name: Install TinyTeX
+      #  run: |
+      #    wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh
+      #    tlmgr update --self
+      #    tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
+      #                  float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
+      #                   pdftexcmds upquote hypcap
 
-      #- name: Build documentaiton
-      #  run: make dirhtml
+      - name: Build documentaiton
+        run: make dirhtml
