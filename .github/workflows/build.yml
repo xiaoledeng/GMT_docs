@@ -28,6 +28,7 @@ jobs:
                libfftw3-dev libpcre3-dev liblapack-dev libblas-dev libglib2.0-dev ghostscript
 
       - name: Build GMT
+        run: |
           curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
           # Add to PATH
           echo "::add-path::${GMT_INSTALL_DIR}/bin"
