@@ -33,6 +33,7 @@ jobs:
           brew install netcdf curl netcdf gdal fftw pcre2 ghostscript
           brew cask install basictex
           eval "$(/usr/libexec/path_helper)"
+          sudo tlmgr update --self
           sudo tlmgr install latexmk
 
       - name: Build GMT
