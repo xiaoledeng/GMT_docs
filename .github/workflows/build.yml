@@ -30,7 +30,7 @@ jobs:
       - name: Install GMT dependencies
         run: |
           brew update
-          brew install netcdf curl netcdf gdal fftw pcre2 ghostscript
+          brew install netcdf curl netcdf gdal fftw pcre2 ghostscript basictex
 
       - name: Build GMT
         run: |
@@ -41,13 +41,15 @@ jobs:
           GMT_INSTALL_DIR: ${{ github.workspace }}/GMT
           GMT_GIT_REF: 6.1.0
 
-      - name: Install TinyTeX
-        run: |
-          wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh
-          tlmgr update --self
-          tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
-                        float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
-                        pdftexcmds upquote hypcap
+      #- name: Install TinyTeX
+      #  run: |
+      #    wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh
+      #    tlmgr update --self
+      #    tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
+      #                  float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
+      #                  pdftexcmds upquote hypcap
 
       - name: Build documentaiton
-        run: make dirhtml
+        run: |
+          make dirhtml
+          make latexpdf
