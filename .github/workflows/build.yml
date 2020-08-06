@@ -30,7 +30,8 @@ jobs:
       - name: Install GMT dependencies
         run: |
           brew update
-          brew install netcdf curl netcdf gdal fftw pcre2 ghostscript basictex
+          brew install netcdf curl netcdf gdal fftw pcre2 ghostscript
+          brew cask install basictex
 
       - name: Build GMT
         run: |
