@@ -31,19 +31,13 @@ jobs:
         run: |
           brew update
           brew install netcdf curl netcdf gdal fftw pcre2 ghostscript
-          brew cask install basictex
 
       - name: Install TeXLive
         run: |
-          eval "$(/usr/libexec/path_helper)"  # required
-          sudo tlmgr update --self
-          sudo tlmgr install ctex fancyhdr titlesec tabulary varwidth wrapfig parskip \
-                             upquote capt-of needspace oberdiek enumitem
-
-          ms xecjk ulem zhnumber fancyhdr \
-                             titlesec tabulary varwidth float wrapfig parskip \
-                             capt-of needspace xcolor enumitem xindy fandol \
-                             pdftexcmds upquote
+          wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh;
+          tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
+                        float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
+                        pdftexcmds upquote oberdiek caption
 
       - name: Build GMT
         run: |
@@ -56,6 +50,4 @@ jobs:
 
       - name: Build documentaiton
         run: |
-          eval "$(/usr/libexec/path_helper)"  # required for TeX
-          make dirhtml
-          make latexpdf
+          make build
