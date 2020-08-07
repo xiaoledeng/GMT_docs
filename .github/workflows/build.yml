@@ -31,10 +31,11 @@ jobs:
         run: |
           brew update
           brew install netcdf curl netcdf gdal fftw pcre2 ghostscript
-          #brew cask install basictex
-          #eval "$(/usr/libexec/path_helper)"
-          #sudo tlmgr update --self
-          #sudo tlmgr install latexmk
+          brew cask install basictex
+          eval "$(/usr/libexec/path_helper)"
+          sudo tlmgr update --self
+          sudo tlmgr install latexmk
+          rehash
 
       - name: Build GMT
         run: |
@@ -45,23 +46,12 @@ jobs:
           GMT_INSTALL_DIR: ${{ github.workspace }}/GMT
           GMT_GIT_REF: 6.1.0
 
-      - name: Install TinyTeX
-        uses: r-lib/actions/setup-tinytex@v1
-
-      - name: Install TeX packages
-        run: |
-          tlmgr update --self
-          tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
-                        float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
-                        pdftexcmds upquote hypcap
-
-      #- name: Install TinyTeX
-      #  run: |
-      #    wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh
-      #    tlmgr update --self
-      #    tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
-      #                  float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
-      #                  pdftexcmds upquote hypcap
+       #- name: Install TeX packages
+       # run: |
+       #   tlmgr update --self
+       #   tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
+       #                 float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
+       #                 pdftexcmds upquote hypcap
 
       - name: Build documentaiton
         run: |
