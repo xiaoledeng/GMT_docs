@@ -35,7 +35,6 @@ jobs:
           eval "$(/usr/libexec/path_helper)"
           sudo tlmgr update --self
           sudo tlmgr install latexmk
-          rehash
 
       - name: Build GMT
         run: |
@@ -55,5 +54,6 @@ jobs:
 
       - name: Build documentaiton
         run: |
+          eval "$(/usr/libexec/path_helper)"
           make dirhtml
           make latexpdf
