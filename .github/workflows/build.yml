@@ -32,9 +32,15 @@ jobs:
           brew update
           brew install netcdf curl netcdf gdal fftw pcre2 ghostscript
           brew cask install basictex
-          eval "$(/usr/libexec/path_helper)"
+
+      - name: Install TeXLive
+        run: |
+          eval "$(/usr/libexec/path_helper)"  # required
           sudo tlmgr update --self
-          sudo tlmgr install latexmk
+          sudo tlmgr install latexmk ctex ms xecjk ulem zhnumber fancyhdr \
+                             titlesec tabulary varwidth float wrapfig parskip \
+                             capt-of needspace xcolor enumitem xindy fandol \
+                             pdftexcmds upquote hypcap
 
       - name: Build GMT
         run: |
@@ -45,15 +51,8 @@ jobs:
           GMT_INSTALL_DIR: ${{ github.workspace }}/GMT
           GMT_GIT_REF: 6.1.0
 
-       #- name: Install TeX packages
-       # run: |
-       #   tlmgr update --self
-       #   tlmgr install ctex ms xecjk ulem zhnumber fancyhdr titlesec tabulary varwidth \
-       #                 float wrapfig parskip capt-of needspace xcolor enumitem xindy fandol \
-       #                 pdftexcmds upquote hypcap
-
       - name: Build documentaiton
         run: |
-          eval "$(/usr/libexec/path_helper)"
+          eval "$(/usr/libexec/path_helper)"  # required for TeX
           make dirhtml
           make latexpdf
